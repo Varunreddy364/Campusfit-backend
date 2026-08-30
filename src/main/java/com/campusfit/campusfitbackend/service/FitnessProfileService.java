@@ -12,6 +12,36 @@ public class FitnessProfileService {
     private FitnessProfileRepository repository;
 
     public FitnessProfile saveProfile(FitnessProfile profile) {
+
+        FitnessProfile existingProfile =
+                repository.findByUserID(profile.getUserID());
+
+        if (existingProfile != null) {
+
+            existingProfile.setFitnessLevel(
+                    profile.getFitnessLevel());
+
+            existingProfile.setPreferredWorkout(
+                    profile.getPreferredWorkout());
+
+            existingProfile.setTargetWeight(
+                    profile.getTargetWeight());
+
+            existingProfile.setDailyCalorieGoal(
+                    profile.getDailyCalorieGoal());
+
+            existingProfile.setDailyProteinGoal(
+                    profile.getDailyProteinGoal());
+
+            existingProfile.setMedicalConditions(
+                    profile.getMedicalConditions());
+
+            existingProfile.setFitnessGoal(
+                    profile.getFitnessGoal());
+
+            return repository.save(existingProfile);
+        }
+
         return repository.save(profile);
     }
 

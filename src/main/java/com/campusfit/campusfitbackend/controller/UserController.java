@@ -25,4 +25,8 @@ public class UserController {
                 user.getPassword()
         );
     }
+    @GetMapping("/{userId}")
+    public User getUser(@PathVariable Integer userId) {
+        return service.getUserById(userId);
+    }
 }

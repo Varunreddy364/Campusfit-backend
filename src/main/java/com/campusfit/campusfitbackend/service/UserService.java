@@ -25,4 +25,8 @@ public class UserService {
 
         return null;
     }
+
+    public User getUserById(Integer userId) {
+        return repository.findById(userId).orElse(null);
+    }
 }
