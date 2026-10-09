@@ -85,4 +85,38 @@ class StudyPlanControllerTest {
         Map<?, ?> body = (Map<?, ?>) response.getBody();
         assertEquals("Study plan session deleted successfully", body.get("message"));
     }
+
+    @Test
+    void testPreviewReplanSuccess() {
+        com.campusfit.campusfitbackend.dto.ReplanRequest request = new com.campusfit.campusfitbackend.dto.ReplanRequest(
+                java.time.LocalDate.of(2026, 10, 10),
+                java.time.LocalTime.of(10, 0),
+                java.time.LocalTime.of(11, 0)
+        );
+        com.campusfit.campusfitbackend.dto.ReplanPreviewResponse mockResponse = new com.campusfit.campusfitbackend.dto.ReplanPreviewResponse(
+                true, "Preview ready", Collections.emptyList(), Collections.emptyList(), Collections.emptyList(), Collections.singletonList(samplePlan)
+        );
+        when(service.previewReplan(101L, request)).thenReturn(mockResponse);
+
+        ResponseEntity<?> response = controller.previewReplan(101L, request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        assertEquals(mockResponse, response.getBody());
+    }
+
+    @Test
+    void testApplyReplanSuccess() {
+        com.campusfit.campusfitbackend.dto.ReplanRequest request = new com.campusfit.campusfitbackend.dto.ReplanRequest(
+                java.time.LocalDate.of(2026, 10, 10),
+                java.time.LocalTime.of(10, 0),
+                java.time.LocalTime.of(11, 0)
+        );
+        when(service.applyReplan(101L, request)).thenReturn(Collections.singletonList(samplePlan));
+
+        ResponseEntity<?> response = controller.applyReplan(101L, request);
+
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        List<?> list = (List<?>) response.getBody();
+        assertEquals(1, list.size());
+    }
 }

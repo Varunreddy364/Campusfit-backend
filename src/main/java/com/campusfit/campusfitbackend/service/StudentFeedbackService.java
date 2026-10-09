@@ -14,10 +14,19 @@ public class StudentFeedbackService {
     private StudentFeedbackRepository repository;
 
     public StudentFeedback saveFeedback(StudentFeedback feedback) {
+        if (feedback == null) {
+            throw new IllegalArgumentException("Feedback data cannot be null.");
+        }
+        if (feedback.getUserId() == null || feedback.getUserId() <= 0) {
+            throw new IllegalArgumentException("User ID is required.");
+        }
         return repository.save(feedback);
     }
 
     public List<StudentFeedback> getFeedbackByUserId(Long userId) {
-        return repository.findByUserId(userId);
+        if (userId == null || userId <= 0) {
+            throw new IllegalArgumentException("Valid User ID is required.");
+        }
+        return repository.findByUserIdOrderByCreatedAtDesc(userId);
     }
 }

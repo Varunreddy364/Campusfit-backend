@@ -11,4 +11,6 @@ public interface MealLogRepository extends JpaRepository<MealLog, Integer> {
     List<MealLog> findByUserid(Integer userid);
 
     List<MealLog> findByUseridAndMealDate(Integer userid, LocalDate mealDate);
+
+    List<MealLog> findByUseridAndMealDateBetweenOrderByMealDateAsc(Integer userid, LocalDate start, LocalDate end);
 }

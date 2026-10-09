@@ -104,4 +104,30 @@ public class StudyPlanController {
                     .body(Map.of("error", "Failed to delete plan: " + e.getMessage()));
         }
     }
+
+    @PostMapping("/replan/preview/{userId}")
+    public ResponseEntity<?> previewReplan(@PathVariable Long userId, @RequestBody com.campusfit.campusfitbackend.dto.ReplanRequest request) {
+        try {
+            com.campusfit.campusfitbackend.dto.ReplanPreviewResponse response = service.previewReplan(userId, request);
+            return ResponseEntity.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to preview replan: " + e.getMessage()));
+        }
+    }
+
+    @PostMapping("/replan/apply/{userId}")
+    public ResponseEntity<?> applyReplan(@PathVariable Long userId, @RequestBody com.campusfit.campusfitbackend.dto.ReplanRequest request) {
+        try {
+            List<StudyPlan> updated = service.applyReplan(userId, request);
+            return ResponseEntity.ok(updated);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(Map.of("error", "Failed to apply replan: " + e.getMessage()));
+        }
+    }
 }

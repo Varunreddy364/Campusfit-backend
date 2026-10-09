@@ -30,6 +30,16 @@ public class MealLogController {
         return mealLogService.getTodaysMeals(userid);
     }
 
+    @PutMapping("/update/{mealid}")
+    public MealLog updateMeal(@PathVariable Integer mealid, @RequestBody MealLog updatedMeal) {
+        return mealLogService.updateMeal(mealid, updatedMeal);
+    }
+
+    @GetMapping("/weekly/{userid}")
+    public List<MealLog> getWeeklyMeals(@PathVariable Integer userid) {
+        return mealLogService.getWeeklyMeals(userid);
+    }
+
     @DeleteMapping("/{mealid}")
     public String deleteMeal(@PathVariable Integer mealid) {
         mealLogService.deleteMeal(mealid);

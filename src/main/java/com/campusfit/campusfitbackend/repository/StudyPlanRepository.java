@@ -20,4 +20,9 @@ public interface StudyPlanRepository extends JpaRepository<StudyPlan, Long> {
     @Modifying
     @Transactional
     void deleteByUserIdAndStatus(Long userId, String status);
+
+    @Modifying
+    @Transactional
+    void deleteByUserIdAndStatusIn(Long userId, List<String> statuses);
 }
+

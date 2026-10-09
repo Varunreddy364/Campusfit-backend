@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface StudentFeedbackRepository extends JpaRepository<StudentFeedback, Long> {
     List<StudentFeedback> findByUserId(Long userId);
+    List<StudentFeedback> findByUserIdOrderByCreatedAtDesc(Long userId);
 }

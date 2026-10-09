@@ -41,4 +41,16 @@ public class StudentFeedback {
     @Column(name = "created_at")
     private LocalDateTime createdAt = LocalDateTime.now();
 
+    // Module-specific feedback fields (transient to avoid database schema alteration)
+    @Transient
+    private Integer studyPlanScore; // 1-5 star rating
+
+    @Transient
+    private Integer replanScore; // 1-5 star rating
+
+    @Transient
+    private Integer workoutScore; // 1-5 star rating
+
+    @Transient
+    private Integer nutritionScore; // 1-5 star rating
 }
